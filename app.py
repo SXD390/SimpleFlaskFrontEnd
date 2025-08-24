@@ -48,4 +48,4 @@ def upload():
 
 if __name__ == "__main__":
     # Bind to all interfaces so it's reachable on EC2 later
-    app.run(host="0.0.0.0", port=80, debug=True)
+    app.run(host="0.0.0.0", port=80, debug=False)
