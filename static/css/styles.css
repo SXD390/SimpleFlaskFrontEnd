@@ -1,0 +1,88 @@
+/* Custom animations & neon components (Tailwind handles the rest) */
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0px) }
+  50% { transform: translateY(-4px) }
+}
+@keyframes fadeScaleIn {
+  0% { opacity: 0; transform: scale(0.98) }
+  100% { opacity: 1; transform: scale(1) }
+}
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.18 }
+  50% { opacity: 0.28 }
+}
+@keyframes pulseSlower {
+  0%, 100% { opacity: 0.16 }
+  50% { opacity: 0.24 }
+}
+
+.animate-pulse-slow { animation: pulseSlow 6s ease-in-out infinite; }
+.animate-pulse-slower { animation: pulseSlower 9s ease-in-out infinite; }
+
+.card-glass {
+  @apply relative rounded-3xl p-6 bg-[#0f0f1a]/70 border border-white/10 shadow-2xl;
+  backdrop-filter: blur(10px);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.card-glass:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px -10px rgba(124,58,237,.5), 0 0 0 1px rgba(255,255,255,.06) inset;
+  border-color: rgba(124,58,237,.35);
+}
+
+.card-header { @apply flex flex-col gap-1; }
+.card-title {
+  @apply text-2xl font-extrabold;
+  background: linear-gradient(90deg, #22d3ee, #7c3aed, #fb7185);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.card-subtitle { @apply text-sm text-slate-300/80; }
+
+.neon-check { @apply flex items-center; }
+.neon-check .check-ui {
+  @apply inline-flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-slate-100 bg-[#141421] border border-white/10 cursor-pointer w-full;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+.neon-check .check-ui:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px -12px rgba(34,211,238,.45);
+  border-color: rgba(34,211,238,.35);
+  background: linear-gradient(180deg, rgba(20,20,33,1) 0%, rgba(25,25,40,1) 100%);
+}
+.neon-check input:checked + .check-ui {
+  box-shadow: 0 10px 35px -10px rgba(124,58,237,.55);
+  border-color: rgba(124,58,237,.45);
+}
+
+.upload-zone {
+  @apply relative mt-6 rounded-2xl border-2 border-dashed border-white/15 bg-[#0f0f1a]/70 p-10 text-center;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.upload-zone:hover {
+  border-color: rgba(34,211,238,.35);
+  box-shadow: 0 10px 40px -12px rgba(34,211,238,.45);
+  transform: translateY(-1px);
+}
+.upload-zone.dragover {
+  border-color: rgba(251,113,133,.55) !important;
+  box-shadow: 0 10px 50px -12px rgba(251,113,133,.55) !important;
+}
+
+.animal-img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,.08);
+  animation: fadeScaleIn .35s ease forwards;
+  box-shadow: 0 20px 50px -20px rgba(124,58,237,.45);
+}
+
+.meta-card {
+  @apply rounded-2xl p-4 bg-[#11111b] border border-white/10;
+  box-shadow: 0 14px 45px -18px rgba(34,211,238,.35);
+  animation: fadeScaleIn .3s ease forwards;
+}
+.meta-label { @apply text-xs uppercase tracking-wide text-slate-400; }
+.meta-value { @apply text-slate-100 font-semibold; }
