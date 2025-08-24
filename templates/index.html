@@ -19,41 +19,68 @@
   </div>
 
   <header class="relative z-10 max-w-6xl mx-auto px-6 pt-10 pb-4">
-    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#22d3ee] via-[#7c3aed] to-[#fb7185] bg-clip-text text-transparent drop-shadow-lg">
-      Neon Menagerie
-    </h1>
-    <p class="mt-3 text-slate-300/80 max-w-2xl">
-      Select a creature to reveal its portrait, and drop a file to see its metadata — all with buttery-smooth micro-interactions.
-    </p>
+    <div class="flex items-start justify-between gap-6">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#22d3ee] via-[#7c3aed] to-[#fb7185] bg-clip-text text-transparent drop-shadow-lg">
+          Neon Menagerie Studio
+        </h1>
+        <p class="mt-3 text-slate-300/85 max-w-2xl">
+          A playful micro-lab for <span class="font-semibold">instant animal previews</span> and <span class="font-semibold">file intelligence</span>.
+          Click an animal to reveal its portrait, or drop a file to see rich metadata—wrapped in a premium dark UI.
+        </p>
+      </div>
+      <div class="hidden md:block">
+        <a href="#animals"
+           class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-[#7c3aed] to-[#22d3ee] text-white font-semibold shadow-lg hover:scale-[1.03] transition">
+          Try it now
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l1.41 1.41L8.83 10H20v2H8.83l4.58 4.59L12 18l-8-8 8-8z"/></svg>
+        </a>
+      </div>
+    </div>
   </header>
 
   <main class="relative z-10 max-w-6xl mx-auto px-6 pb-20">
     <div class="grid md:grid-cols-2 gap-8">
 
       <!-- Animal Selector Card -->
-      <section class="card-glass">
+      <section id="animals" class="card-glass">
         <div class="card-header">
-          <h2 class="card-title">Choose Your Animal</h2>
-          <p class="card-subtitle">Cat, Dog, or Elephant — instant reveal with a silky fade & scale.</p>
+          <h2 class="card-title">Pick an Animal</h2>
+          <p class="card-subtitle">Click a card below. The chosen one will glow and reveal a portrait with silky motion.</p>
         </div>
 
-        <div class="mt-6 space-y-4">
-          <label class="neon-check">
-            <input type="checkbox" class="sr-only animal-toggle" value="cat" />
-            <span class="check-ui">Cat</span>
-          </label>
-          <label class="neon-check">
-            <input type="checkbox" class="sr-only animal-toggle" value="dog" />
-            <span class="check-ui">Dog</span>
-          </label>
-          <label class="neon-check">
-            <input type="checkbox" class="sr-only animal-toggle" value="elephant" />
-            <span class="check-ui">Elephant</span>
-          </label>
+        <!-- New: Big, clickable pill buttons with icons -->
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <button class="animal-btn" data-kind="cat">
+            <span class="animal-chip">
+              <svg class="chip-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.4 0 2.5 1.1 2.5 2.5S13.4 7 12 7s-2.5-1.1-2.5-2.5S10.6 2 12 2zm6 9c1.1 0 2 .9 2 2v7h-2v-5h-2v5H8v-5H6v5H4v-7c0-1.1.9-2 2-2h12z"/></svg>
+              Cat
+            </span>
+            <span class="chip-glow"></span>
+          </button>
+
+          <button class="animal-btn" data-kind="dog">
+            <span class="animal-chip">
+              <svg class="chip-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4 7l4-4 3 3-4 4H4V7zm12 10v-4h-2V9h6l-2 4h2l-4 4h0z"/></svg>
+              Dog
+            </span>
+            <span class="chip-glow"></span>
+          </button>
+
+          <button class="animal-btn" data-kind="elephant">
+            <span class="animal-chip">
+              <svg class="chip-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 11c0-3.3 2.7-6 6-6h6c3.3 0 6 2.7 6 6v7h-2v-3h-2v3h-2v-4H9v4H7v-3H5v3H3v-7z"/></svg>
+              Elephant
+            </span>
+            <span class="chip-glow"></span>
+          </button>
         </div>
 
-        <div id="animalOutput" class="mt-8">
-          <!-- Injected image appears here -->
+        <div id="animalOutput" class="mt-8"></div>
+        
+        <!-- Selected animal indicator -->
+        <div id="selectedIndicator" class="mt-4 text-center">
+          <span class="text-sm text-slate-400/70">Click an animal above to reveal its portrait</span>
         </div>
       </section>
 

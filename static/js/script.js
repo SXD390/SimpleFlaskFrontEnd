@@ -2,19 +2,30 @@
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-// Animal selector logic
-const animalOutput = $("#animalOutput");
-const toggles = $$(".animal-toggle");
+// ----- Animal buttons -----
+const animalOutput = document.querySelector("#animalOutput");
+const animalBtns = Array.from(document.querySelectorAll(".animal-btn"));
 
-// Ensure only one checkbox is active at a time
-toggles.forEach(cb => {
-  cb.addEventListener("change", () => {
-    if (cb.checked) {
-      toggles.forEach(other => { if (other !== cb) other.checked = false; });
-      showAnimal(cb.value);
-    } else {
-      // If the active one is unchecked, clear
-      if (!toggles.some(t => t.checked)) animalOutput.innerHTML = "";
+animalBtns.forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    // ripple
+    const rect = btn.getBoundingClientRect();
+    btn.style.setProperty("--rx", `${e.clientX - rect.left}px`);
+    btn.style.setProperty("--ry", `${e.clientY - rect.top}px`);
+    btn.classList.remove("rippling"); // restart
+    void btn.offsetWidth;
+    btn.classList.add("rippling");
+
+    // active state
+    animalBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    showAnimal(btn.dataset.kind);
+    
+    // Update selected indicator
+    const indicator = document.querySelector("#selectedIndicator");
+    if (indicator) {
+      indicator.innerHTML = `<span class="text-sm text-slate-400/70">Selected: <span class="font-semibold text-cyan-300">${btn.dataset.kind.charAt(0).toUpperCase() + btn.dataset.kind.slice(1)}</span></span>`;
     }
   });
 });
@@ -26,17 +37,31 @@ function showAnimal(kind) {
     elephant: "/static/images/elephant.jpg"
   };
   const src = map[kind];
+
+  // Show skeleton shimmer first
   animalOutput.innerHTML = `
     <div class="relative">
-      <img class="animal-img" alt="${kind}" src="${src}" />
-      <div class="absolute bottom-3 left-3 bg-black/50 backdrop-blur px-3 py-1 rounded-lg text-sm border border-white/10">
-        ${kind.charAt(0).toUpperCase() + kind.slice(1)}
-      </div>
+      <div class="animal-img skeleton-shimmer"></div>
     </div>
   `;
-  // subtle float effect
-  const img = $(".animal-img", animalOutput);
-  img.style.animation = "fadeScaleIn .35s ease forwards, floaty 5s ease-in-out infinite";
+
+  // Create and load the actual image
+  const img = new Image();
+  img.onload = function() {
+    animalOutput.innerHTML = `
+      <div class="relative">
+        <img class="animal-img" alt="${kind}" src="${src}" />
+        <div class="absolute bottom-3 left-3 bg-black/50 backdrop-blur px-3 py-1 rounded-lg text-sm border border-white/10">
+          ${kind.charAt(0).toUpperCase()+kind.slice(1)}
+        </div>
+      </div>
+    `;
+    
+    const loadedImg = animalOutput.querySelector(".animal-img");
+    loadedImg.style.animation = "fadeScaleIn .35s ease forwards, floaty 5s ease-in-out infinite";
+  };
+  
+  img.src = src;
 }
 
 // File upload logic
@@ -78,12 +103,20 @@ async function handleFiles(fileList) {
   const form = new FormData();
   form.append("file", file);
 
-  // Optional: little loading shimmer
+  // Show loading state with progress bar
   uploadResult.innerHTML = `
     <div class="meta-card">
-      <div class="text-slate-300">Uploading <span class="font-semibold">${file.name}</span>…</div>
+      <div class="text-slate-300 mb-3">Uploading <span class="font-semibold">${file.name}</span>…</div>
+      <div class="w-full bg-slate-700/50 rounded-full h-2 overflow-hidden">
+        <div class="upload-progress h-full bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full transition-all duration-300 ease-out"></div>
+      </div>
     </div>
   `;
+  
+  // Animate progress bar
+  const progressBar = uploadResult.querySelector('.upload-progress');
+  setTimeout(() => progressBar.style.width = '60%', 100);
+  setTimeout(() => progressBar.style.width = '90%', 300);
 
   try {
     const res = await fetch("/upload", { method: "POST", body: form });

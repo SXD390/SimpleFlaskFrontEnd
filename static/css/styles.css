@@ -86,3 +86,73 @@
 }
 .meta-label { @apply text-xs uppercase tracking-wide text-slate-400; }
 .meta-value { @apply text-slate-100 font-semibold; }
+
+/* --- Premium "click me" chips --- */
+.animal-btn {
+  position: relative; overflow: hidden;
+  border-radius: 1rem; padding: .25rem;
+  background: linear-gradient(135deg, rgba(124,58,237,.25), rgba(34,211,238,.15));
+  border: 1px solid rgba(255,255,255,.06);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.animal-btn:hover { transform: translateY(-1px) scale(1.01); box-shadow: 0 12px 40px -16px rgba(124,58,237,.55); border-color: rgba(124,58,237,.35); }
+.animal-btn:active { transform: scale(.995); }
+
+.animal-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap:.6rem; width:100%; padding:.9rem 1rem; border-radius:.85rem;
+  color:#e8e8ff; font-weight:700; letter-spacing:.2px;
+  background: linear-gradient(180deg, #141427, #1a1a2f);
+}
+
+.chip-icon { width: 18px; height: 18px; opacity:.9; }
+
+/* subtle sparkle glow */
+.chip-glow {
+  position:absolute; inset:-40%;
+  background: radial-gradient(closest-side, rgba(124,58,237,.28), transparent 70%),
+              radial-gradient(closest-side, rgba(34,211,238,.20), transparent 70%);
+  filter: blur(24px); opacity:.35; pointer-events:none; transition: opacity .2s ease;
+}
+.animal-btn:hover .chip-glow { opacity:.55; }
+
+/* active state */
+.animal-btn.active { box-shadow: 0 16px 50px -18px rgba(34,211,238,.55), inset 0 0 0 1px rgba(255,255,255,.06); }
+.animal-btn.active .animal-chip { background: linear-gradient(180deg, #17172e, #1e1e3b); }
+.animal-btn.active .chip-glow { opacity:.7; }
+
+/* Ripple for clicks */
+.animal-btn::after {
+  content:""; position:absolute; border-radius:999px; transform: scale(0);
+  background: radial-gradient(closest-side, rgba(255,255,255,.25), transparent);
+  width:10px; height:10px; opacity:0; pointer-events:none;
+  left: var(--rx, 50%);
+  top: var(--ry, 50%);
+  transform: translate(-50%, -50%) scale(0);
+}
+.animal-btn.rippling::after { animation: ripple .6s ease-out forwards; }
+@keyframes ripple {
+  from { transform: translate(-50%, -50%) scale(0); opacity:.65; }
+  to   { transform: translate(-50%, -50%) scale(35); opacity:0; }
+}
+
+/* Skeleton shimmer for loading states */
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #1a1a2f 25%, #22223a 50%, #1a1a2f 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Upload progress bar */
+.upload-progress {
+  width: 0%;
+  background: linear-gradient(90deg, #22d3ee, #7c3aed);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+}
