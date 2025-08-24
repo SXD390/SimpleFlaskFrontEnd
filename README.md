@@ -5,7 +5,7 @@ A beautiful Flask application featuring **premium animal selector controls** wit
 ## ✨ Features
 
 - **🎯 Premium Animal Selector**: Big, clickable pill buttons with icons, ripple effects, and smooth animations
-- **📁 File Upload**: Drag & drop or click to upload files, displaying rich metadata
+- **📁 Multi-File Upload**: Drag & drop or click to upload multiple files simultaneously, each displayed in its own premium card with intelligent file type detection
 - **🎨 Premium Dark Theme**: Deep dark background with vibrant neon accents (purple, cyan, rose)
 - **✨ Smooth Animations**: Micro-interactions, glowing borders, glass morphism, and buttery-smooth transitions
 - **📱 Responsive Design**: Works perfectly on both mobile and desktop
@@ -45,7 +45,7 @@ Navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000)
 ## 🧪 Test the Features
 
 1. **Animal Selection**: Click any animal button → see instant image reveal with smooth animation + ripple effect
-2. **File Upload**: Drag any file onto the upload zone → see metadata (name, size, MIME type) with progress bar
+2. **Multi-File Upload**: Drag multiple files onto the upload zone → see each file in its own premium card with smart type detection, category icons, and shimmer loading states
 3. **Responsive**: Resize browser window to see mobile-friendly layout
 
 ## 📁 Project Structure
@@ -87,6 +87,18 @@ FlaskFrontEnd/
 - **Loading States**: Skeleton shimmer for images, progress bars for uploads
 - **State Indicators**: "Selected: [Animal]" labels
 
+### **Multi-File Upload System**
+- **Concurrent Uploads**: Handles up to 3 files simultaneously for optimal performance
+- **Individual Cards**: Each file gets its own premium card with smooth fade-up animations
+- **Shimmer Loading**: Beautiful placeholder states while files are uploading
+- **Remove Functionality**: Click × button to remove any card from view
+
+### **Smart File Detection**
+- **Intelligent Categorization**: Automatically detects Document, Image, Code, Archive, or Binary
+- **Pretty Type Labels**: Shows user-friendly descriptions (e.g., "Jupyter Notebook (JSON)" instead of generic MIME)
+- **Category Icons**: Visual representation for each file type
+- **Enhanced Metadata**: Extension badges, category badges, and detailed information
+
 ## 🔧 Technical Details
 
 - **Backend**: Flask with secure file handling, MIME detection, and human-readable size formatting
@@ -100,8 +112,10 @@ FlaskFrontEnd/
 - [ ] **Animal Selection**: Clicking Cat/Dog/Elephant buttons shows correct image with fade/scale + floating animation
 - [ ] **Ripple Effects**: Click anywhere on buttons for satisfying ripple animation
 - [ ] **Active States**: Selected button glows and shows "Selected: [Animal]" indicator
-- [ ] **File Upload**: Drag & drop files → metadata card shows filename, size (KB/MB), MIME type
-- [ ] **Progress Feedback**: Upload shows progress bar and loading states
+- [ ] **Multi-File Upload**: Drag & drop multiple files → each gets its own premium card with filename, extension, category, pretty type, size, and MIME type
+- [ ] **Smart Detection**: Uploads show intelligent categorization (Document/Image/Code/Archive/Binary)
+- [ ] **Concurrent Processing**: Handles up to 3 files simultaneously with shimmer loading states
+- [ ] **Card Management**: Remove individual cards with × button, smooth fade-up animations
 - [ ] **Responsive Layout**: Works perfectly on mobile and desktop
 - [ ] **Large Files**: Handles 10–20MB files with proper size display
 

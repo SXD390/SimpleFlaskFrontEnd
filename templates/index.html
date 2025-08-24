@@ -94,12 +94,13 @@
         <div id="dropZone" class="upload-zone group">
           <div class="pointer-events-none flex flex-col items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 opacity-80 group-hover:scale-105 transition-transform" viewBox="0 0 24 24" fill="currentColor"><path d="M12 16l4-5h-3V4h-2v7H8l4 5z"/><path d="M20 18H4v2h16v-2z"/></svg>
-            <p class="text-slate-300/90"><span class="font-semibold">Drop file here</span> or click to upload</p>
+            <p class="text-slate-300/90"><span class="font-semibold">Drop files here</span> or click to upload</p>
           </div>
-          <input id="fileInput" type="file" class="absolute inset-0 opacity-0 cursor-pointer" />
+          <input id="fileInput" type="file" class="absolute inset-0 opacity-0 cursor-pointer" multiple />
         </div>
 
-        <div id="uploadResult" class="mt-6 space-y-3"></div>
+        <!-- File List -->
+        <div id="uploadList" class="mt-6 space-y-4"></div>
       </section>
     </div>
   </main>
